@@ -8,8 +8,6 @@ Jest is a comprehensive JavaScript testing framework that provides:
 - Coverage reporting
 - Snapshot testing
 
----
-
 ## Red-Green-Refactor for Beginners in Node.js
 
 Test-Driven Development (TDD) follows a simple cycle:
@@ -42,8 +40,6 @@ npm test
 
 **Expected Result:** FAIL – `sum` is not defined.
 
----
-
 #### Green Phase: Write Minimal Code to Pass
 
 Write the simplest implementation to make the test pass.
@@ -65,8 +61,6 @@ npm test
 ```
 
 **Expected Result:** PASS – `sum(1, 2)` returns `3`.
-
----
 
 #### Refactor Phase: Improve the Code
 
@@ -105,8 +99,6 @@ npm test
 
 **Expected Result:** All tests pass!
 
----
-
 ### Real-World Example: User Registration
 
 #### Step 1: Write Failing Tests
@@ -131,8 +123,6 @@ test('throws error if email is invalid', () => {
 
 **Expected Result:** FAIL – `registerUser` doesn’t exist.
 
----
-
 #### Step 2: Write Minimal Implementation
 
 **Implementation File:** `userService.js`
@@ -149,8 +139,6 @@ module.exports = { registerUser };
 ```
 
 **Expected Result:** PASS – Basic functionality works.
-
----
 
 #### Step 3: Refactor & Extend
 
@@ -182,9 +170,7 @@ module.exports = { registerUser };
 
 **Expected Result:** All tests pass!
 
----
-
-## Key Takeaways for Beginners
+## Key Takeaways
 
 - **Start with a failing test ( Red):** Define behavior first.
 - **Make it pass quickly ( Green):** Write the simplest code possible.

@@ -2,8 +2,6 @@
 
 Jest is a powerful, developer-friendly testing framework widely used in the JavaScript ecosystem. It’s particularly popular in Node.js and React projects due to its simplicity, built-in features (like mocking and code coverage), and seamless integration with modern development workflows.
 
----
-
 ## Installation and Setup
 
 ### Install Jest
@@ -41,8 +39,6 @@ module.exports = {
   },
 };
 ```
-
----
 
 ## Writing Basic Unit Tests
 
@@ -103,8 +99,6 @@ npm test
 
 Jest will automatically detect and run all `*.test.js` files.
 
----
-
 ## Jest as a Standalone Testing Framework
 
 ### Built-in Features
@@ -118,8 +112,6 @@ Jest will automatically detect and run all `*.test.js` files.
 - **Snapshot Testing**: Ensure outputs don’t change unexpectedly, useful for UI components.
 - **Parallel Test Execution**: Improves performance by running tests in parallel.
 - **Standalone Execution**: No additional libraries required for assertions or test runners.
-
----
 
 ## Generating Coverage Reports
 
@@ -141,8 +133,6 @@ After running tests, Jest generates a `coverage` folder with an HTML report. Ope
 
 Integrate coverage reports into CI/CD pipelines (e.g., GitHub Actions, Jenkins) to enforce coverage thresholds and ensure code quality.
 
----
-
 ## Real-World Context
 
 ### E-commerce Example
@@ -157,8 +147,6 @@ Validate utility functions (e.g., input sanitization, data transformation) befor
 
 Unit tests act as a safety net when refactoring code. For example, if you optimize the `calculateDiscount` function, running tests ensures the behavior remains consistent.
 
----
-
 ## Best Practices for Writing Unit Tests with Jest
 
 - **Test One Thing at a Time**: Focus each test on a single behavior or edge case.
@@ -169,8 +157,6 @@ Unit tests act as a safety net when refactoring code. For example, if you optimi
   - **Act**: Execute the function or method being tested.
   - **Assert**: Validate the output or behavior.
 - **Maintain High Coverage**: Aim for at least 80% coverage, prioritizing critical and complex logic.
-
----
 
 ## Example Workflow in a Team Setting
 

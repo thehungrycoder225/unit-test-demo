@@ -9,8 +9,6 @@ Practice Test-Driven Development (TDD) by building a simple Task Manager with th
 
 Follow the **Red → Green → Refactor** cycle for each feature.
 
----
-
 ## Step 1: Project Setup
 
 1. Initialize a Node.js project:
@@ -28,8 +26,6 @@ Follow the **Red → Green → Refactor** cycle for each feature.
      "test": "jest --watchAll"
    }
    ```
-
----
 
 ## Step 2: TDD Walkthrough
 
@@ -85,8 +81,6 @@ module.exports = { TaskManager };
 
 No refactoring needed yet.
 
----
-
 ### Feature 2: List All Tasks
 
 #### Red: Write a Failing Test
@@ -126,8 +120,6 @@ class TaskManager {
 **PASS** – Test now succeeds!
 
 #### Refactor: No Changes Needed Yet
-
----
 
 ### Feature 3: Mark a Task as Complete
 
@@ -187,8 +179,6 @@ completeTask(index) {
 
 **PASS** – Now handles errors!
 
----
-
 ### Feature 4: Delete a Task
 
 #### Red: Write a Failing Test
@@ -230,8 +220,6 @@ class TaskManager {
 
 #### Refactor: No Changes Needed
 
----
-
 ## Final TaskManager Code
 
 **File:** `taskManager.js`
@@ -268,15 +256,11 @@ class TaskManager {
 module.exports = { TaskManager };
 ```
 
----
+## Key Takeaways
 
-## Key Lessons Learned
-
-- ✔ **TDD encourages better design** by forcing you to think before coding.
-- ✔ **Tests act as documentation** to show how the code should work.
-- ✔ **Refactoring is safe** because passing tests ensure nothing is broken.
-
----
+- **TDD encourages better design** by forcing you to think before coding.
+- **Tests act as documentation** to show how the code should work.
+- **Refactoring is safe** because passing tests ensure nothing is broken.
 
 ## Challenge for You!
 
