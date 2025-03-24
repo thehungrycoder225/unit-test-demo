@@ -1,183 +1,254 @@
-# Jest Architecture Overview
+# Unit and Integration Testing with TDD
 
-Jest is a comprehensive JavaScript testing framework that provides:
+## 1. Introduction to Testing in NodeJS
 
-- Test runner
-- Assertion library
-- Mocking capabilities
-- Coverage reporting
-- Snapshot testing
+### Importance of Testing in Modern Web Development
 
-## Red-Green-Refactor for Beginners in Node.js
+Testing ensures the reliability, stability, and maintainability of applications. As applications grow more complex, automated testing helps catch bugs early in the development process.
 
-Test-Driven Development (TDD) follows a simple cycle:
+**Benefits of Testing:**
 
-1.  **Red** → Write a failing test.
-2.  **Green** → Write minimal code to pass the test.
-3.  **Refactor** → Improve code without breaking tests.
+- **Confidence in Code Changes:** Refactor and add features without fear of breaking functionality.
+- **Reduced Debugging Time:** Detect issues early to save time later.
+- **Improved Code Quality:** Leads to cleaner, modular, and maintainable code.
+- **Documentation:** Tests act as living documentation for expected behavior.
 
-### Example: TDD with a `sum` Function
+### Overview of Testing Types
 
-#### Red Phase: Write a Failing Test
+- **Unit Testing:** Tests individual functions or components in isolation (e.g., testing a discount calculation function).
+- **Integration Testing:** Tests how multiple components work together (e.g., testing a REST API endpoint interacting with a database).
+- **End-to-End (E2E) Testing:** Simulates user interactions with the entire application (e.g., logging in and adding an item to a cart).
 
-Define the desired behavior before implementing the code.
+### Testing Frameworks for NodeJS
 
-**Test File:** `sum.test.js`
+- **Jest:** Popular for unit and integration testing, with built-in mocking and assertion libraries.
+- **Other Frameworks:** Mocha, Chai, Supertest (for HTTP APIs), Cypress (for E2E testing).
 
-```javascript
-const { sum } = require('./sum');
+## 2. Writing Unit Tests with Jest
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3); // Test fails (sum doesn’t exist yet!)
-});
-```
+### Installation and Setup
 
-Run the test:
+1. **Initialize Project:**
 
 ```bash
-npm test
+npm init -y
 ```
 
-**Expected Result:** FAIL – `sum` is not defined.
+2. **Install Jest:**
 
-#### Green Phase: Write Minimal Code to Pass
+```bash
+npm install --save-dev jest
+```
 
-Write the simplest implementation to make the test pass.
+3. **Add Test Script to `package.json`:**
 
-**Implementation File:** `sum.js`
-
-```javascript
-function sum(a, b) {
-  return a + b; // Simplest possible implementation
+```json
+"scripts": {
+  "test": "jest"
 }
-
-module.exports = { sum };
 ```
 
-Run the test:
+### Writing Basic Unit Tests
 
-```bash
-npm test
-```
-
-**Expected Result:** PASS – `sum(1, 2)` returns `3`.
-
-#### Refactor Phase: Improve the Code
-
-Enhance the implementation to handle edge cases.
-
-**Updated Test File:** `sum.test.js`
+**Example Function:**
 
 ```javascript
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-
-test('throws error if non-numbers are passed', () => {
-  expect(() => sum('1', 2)).toThrow('Inputs must be numbers!');
-});
-```
-
-**Refactored Implementation File:** `sum.js`
-
-```javascript
-function sum(a, b) {
-  if (typeof a !== 'number' || typeof b !== 'number') {
-    throw new Error('Inputs must be numbers!');
+// discount.js
+function calculateDiscount(price, percentage) {
+  if (percentage < 0 || percentage > 100) {
+    throw new Error('Invalid discount percentage');
   }
-  return a + b;
+  return price - price * (percentage / 100);
 }
 
-module.exports = { sum };
+module.exports = calculateDiscount;
 ```
 
-Run the test:
-
-```bash
-npm test
-```
-
-**Expected Result:** All tests pass!
-
-### Real-World Example: User Registration
-
-#### Step 1: Write Failing Tests
-
-**Test File:** `userService.test.js`
+**Unit Test:**
 
 ```javascript
-const { registerUser } = require('./userService');
+// discount.test.js
+const calculateDiscount = require('./discount');
 
-test('registers a user with valid email & password', () => {
-  const user = registerUser('test@example.com', 'password123');
-  expect(user.email).toBe('test@example.com');
-  expect(user.id).toBeDefined();
+test('calculates 10% discount correctly', () => {
+  expect(calculateDiscount(100, 10)).toBe(90);
 });
 
-test('throws error if email is invalid', () => {
-  expect(() => registerUser('invalid-email', 'password123')).toThrow(
-    'Invalid email!'
+test('throws error for invalid percentage', () => {
+  expect(() => calculateDiscount(100, 110)).toThrow(
+    'Invalid discount percentage'
   );
 });
 ```
 
-**Expected Result:** FAIL – `registerUser` doesn’t exist.
+## 3. Writing Integration Tests with Jest and Supertest
 
-#### Step 2: Write Minimal Implementation
-
-**Implementation File:** `userService.js`
+### Example API
 
 ```javascript
-function registerUser(email, password) {
-  if (!email.includes('@')) {
-    throw new Error('Invalid email!');
-  }
-  return { email, id: Date.now() };
-}
+// app.js
+const express = require('express');
+const app = express();
+app.use(express.json());
 
-module.exports = { registerUser };
+app.post('/add', (req, res) => {
+  const { a, b } = req.body;
+  res.json({ result: a + b });
+});
+
+module.exports = app;
 ```
 
-**Expected Result:** PASS – Basic functionality works.
-
-#### Step 3: Refactor & Extend
-
-Add more validations to improve the implementation.
-
-**Updated Test File:** `userService.test.js`
+**Integration Test:**
 
 ```javascript
-test('throws error if password is too short', () => {
-  expect(() => registerUser('test@example.com', '123')).toThrow(
-    'Password must be at least 8 characters!'
-  );
+// app.test.js
+const request = require('supertest');
+const app = require('./app');
+
+describe('POST /add', () => {
+  it('should return the sum of two numbers', async () => {
+    const response = await request(app).post('/add').send({ a: 5, b: 7 });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.result).toBe(12);
+  });
 });
 ```
 
-**Refactored Implementation File:** `userService.js`
+## 4. Test-Driven Development (TDD) Principles and Best Practices
+
+### Benefits of TDD
+
+- **Reduces Bugs Early:** Detect issues before code is fully developed.
+- **Improves Software Design:** Encourages modular, loosely-coupled components.
+- **Acts as Documentation:** Tests describe expected system behavior.
+- **Encourages Confidence:** Easier to refactor and extend code.
+
+### TDD Workflow
+
+1. Write a failing test first (red).
+2. Write just enough code to pass the test (green).
+3. Refactor code while keeping the test green.
+4. Repeat.
+
+**Example TDD Cycle:**
+
+1. **Write a Failing Test:**
 
 ```javascript
-function registerUser(email, password) {
-  if (!email.includes('@')) throw new Error('Invalid email!');
-  if (password.length < 8)
-    throw new Error('Password must be at least 8 characters!');
-
-  return { email, id: Date.now() };
-}
-
-module.exports = { registerUser };
+test('should calculate tax of 5% on 100', () => {
+  expect(calculateTax(100)).toBe(5);
+});
 ```
 
-**Expected Result:** All tests pass!
+2. **Implement the Function:**
 
-## Key Takeaways
+```javascript
+function calculateTax(amount) {
+  return amount * 0.05;
+}
+```
 
-- **Start with a failing test ( Red):** Define behavior first.
-- **Make it pass quickly ( Green):** Write the simplest code possible.
-- **Improve safely ( Refactor):** Optimize without breaking tests.
+3. **Refactor if Needed.**
 
-### Why TDD?
+## 5. Best Practices for Unit and Integration Testing
 
-- ✔ **Fewer bugs:** Tests catch errors early.
-- ✔ **Better design:** Forces you to think before coding.
-- ✔ **Confidence:** Refactor fearlessly with tests in place.
+### Unit Testing Best Practices
+
+- **Isolate Units of Work:** Test one function/class at a time.
+- **Small and Focused Tests:** Follow the AAA pattern (Arrange, Act, Assert).
+- **Descriptive Test Names:** Clearly explain what the test verifies.
+- **Test Edge Cases:** Handle invalid inputs, missing fields, etc.
+- **Keep Tests Fast:** Avoid slow operations like API calls or DB queries.
+
+### Integration Testing Best Practices
+
+- **Test End-to-End Components Together:** Verify multiple components work together.
+- **Use Realistic Scenarios:** Simulate real-world API usage.
+- **Setup and Teardown Data:** Reset or seed databases/in-memory stores before each test.
+- **Test Error Handling:** Check for both success and failure cases.
+
+## 6. Automating Tests with CI/CD (optional)
+
+### GitHub Actions Workflow Example
+
+```yaml
+name: Node.js CI Pipeline
+
+on:
+  push:
+   branches: [ "main", "dev" ]
+  pull_request:
+   branches: [ "main", "dev" ]
+
+jobs:
+  build-and-test:
+   runs-on: ubuntu-latest
+
+   strategy:
+    matrix:
+      node-version: [18.x, 20.x]
+
+   steps:
+   - name: Checkout code
+    uses: actions/checkout@v3
+
+   - name: Setup Node.js
+    uses: actions/setup-node@v3
+    with:
+      node-version: ${{ matrix.node-version }}
+
+   - name: Install dependencies
+    run: npm install
+
+   - name: Run Tests
+    run: npm test -- --coverage
+
+   - name: Upload Coverage Report
+    uses: actions/upload-artifact@v3
+    with:
+      name: coverage-report
+      path: coverage/
+```
+
+## 7. Student Checklist for Testing
+
+### Unit Testing
+
+- Tests isolate individual functions (no DB/API calls).
+- Mocks/stubs used where needed.
+- Tests cover both happy paths and edge cases.
+- Descriptive test names and clear structure.
+
+### Integration Testing
+
+- Simulates real-world API behavior (e.g., POST, GET, PUT).
+- Tests both success and error responses.
+- Setup and teardown implemented properly.
+
+### Documentation
+
+- README or doc file explaining testing strategy and setup.
+- Coverage report generated using `jest --coverage`.
+
+## 8. Lab Activity
+
+### Objective:
+
+- Write unit tests for a NodeJS module simulating a real-world feature.
+- Apply TDD principles to implement the feature.
+
+### Scenario:
+
+Develop a "Currency Converter" module with:
+
+- A `convertCurrency(amount, rate)` function.
+- Tests for edge cases (e.g., negative amounts, invalid rate).
+
+### Steps:
+
+1. Create the test file `converter.test.js`.
+2. Write TDD cycle: Red → Green → Refactor.
+3. Add proper assertions using `expect()`.
+4. Submit working tests and implementation.
