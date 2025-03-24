@@ -212,7 +212,7 @@ jobs:
       path: coverage/
 ```
 
-## 7. Student Checklist for Testing
+## 7. Checklist for Testing
 
 ### Unit Testing
 
