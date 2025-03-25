@@ -33,3 +33,8 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
+
+# Test files and functions 
+test/
+utils/
+coverage/

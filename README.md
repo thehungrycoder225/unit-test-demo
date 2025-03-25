@@ -1,5 +1,35 @@
 # Unit and Integration Testing with TDD
 
+## Table of Contents
+
+- [Unit and Integration Testing with TDD](#unit-and-integration-testing-with-tdd)
+  - [Table of Contents](#table-of-contents)
+  - [1. Introduction to Testing in NodeJS](#1-introduction-to-testing-in-nodejs)
+    - [Importance of Testing in Modern Web Development](#importance-of-testing-in-modern-web-development)
+    - [Overview of Testing Types](#overview-of-testing-types)
+    - [Testing Frameworks for NodeJS](#testing-frameworks-for-nodejs)
+  - [2. Writing Unit Tests with Jest](#2-writing-unit-tests-with-jest)
+    - [Installation and Setup](#installation-and-setup)
+    - [Writing Basic Unit Tests](#writing-basic-unit-tests)
+  - [3. Writing Integration Tests with Jest and Supertest](#3-writing-integration-tests-with-jest-and-supertest)
+    - [Example API](#example-api)
+  - [4. Test-Driven Development (TDD) Principles and Best Practices](#4-test-driven-development-tdd-principles-and-best-practices)
+    - [Benefits of TDD](#benefits-of-tdd)
+    - [TDD Workflow](#tdd-workflow)
+  - [5. Best Practices for Unit and Integration Testing](#5-best-practices-for-unit-and-integration-testing)
+    - [Unit Testing Best Practices](#unit-testing-best-practices)
+    - [Integration Testing Best Practices](#integration-testing-best-practices)
+  - [6. Automating Tests with CI/CD (optional)](#6-automating-tests-with-cicd-optional)
+    - [GitHub Actions Workflow Example](#github-actions-workflow-example)
+  - [7. Checklist for Testing](#7-checklist-for-testing)
+    - [Unit Testing](#unit-testing)
+    - [Integration Testing](#integration-testing)
+    - [Documentation](#documentation)
+  - [8. Lab Activity](#8-lab-activity)
+    - [Objective:](#objective)
+    - [Scenario:](#scenario)
+    - [Steps:](#steps)
+
 ## 1. Introduction to Testing in NodeJS
 
 ### Importance of Testing in Modern Web Development
