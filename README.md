@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Unit and Integration Testing with TDD](#unit-and-integration-testing-with-tdd)
+
   - [Table of Contents](#table-of-contents)
   - [1. Introduction to Testing in NodeJS](#1-introduction-to-testing-in-nodejs)
     - [Importance of Testing in Modern Web Development](#importance-of-testing-in-modern-web-development)
@@ -29,6 +30,7 @@
     - [Objective:](#objective)
     - [Scenario:](#scenario)
     - [Steps:](#steps)
+  - [9. Advance Notes]('/')
 
 ## 1. Introduction to Testing in NodeJS
 

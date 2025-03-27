@@ -6,17 +6,14 @@ const exchangeRates = {
 };
 
 exports.currencyConverter = (fromSymbol, toSymbol, amount) => {
-  const fromRates = exchangeRates[fromSymbol];
-  if (!fromRates || !fromRates[toSymbol]) {
-    throw new Error(
-      `Error: Conversion rate from ${fromSymbol} to ${toSymbol} not found.`
-    );
+  if (amount === null || amount === undefined || typeof amount !== 'number') {
+    return 'Error: Invalid input';
   }
 
-  if (typeof amount !== 'number' || isNaN(amount)) {
-    throw new Error('Error: Invalid input');
+  const rate = exchangeRates[fromSymbol]?.[toSymbol];
+  if (!rate) {
+    throw new Error('Invalid Currency Code or Conversion Rate not available.');
   }
 
-  const rate = fromRates[toSymbol];
   return amount * rate;
 };
